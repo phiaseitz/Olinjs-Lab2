@@ -1,6 +1,3 @@
-// A lot of this code came from my todo app, which borrowed heavily from https://scotch.io/tutorials/creating-a-single-page-todo-app-with-node-and-angular
-
-
 // set up ========================
 var express  = require('express');
 var app      = express();                               // create our app w/ express
@@ -32,22 +29,7 @@ app.use(methodOverride());
 
 // routes ======================================================================
 
-// api ---------------------------------------------------------------------
-// get all the topic titles (for the nav bar)
-app.get('/api/topicTitles', index.getTopicTitles);
 
-// create topic and send back the new topic
-app.post('/api/create/topic', index.createTopic);
-
-//Get all the information for one topic
-app.get('/api/topic', index.getTopic)
-
-// update topic
-app.post('/api/update/topic', index.updateTopic)
-
-// application -------------------------------------------------------------
-// render index.html when we navigate 
-app.get('*', index.home);
 
 // listen (start app with node server.js) ======================================
 PORT = process.env.PORT || 3000;
