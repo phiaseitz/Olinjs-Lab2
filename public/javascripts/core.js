@@ -1,5 +1,5 @@
 // Create the controller. This is what controls the app. 
-var wiki = angular.module('mashup', ['ngMaterial'])
+var wiki = angular.module('mashup', ['ngMaterial', 'spotify'])
 .controller('AppCtrl', function ($scope, $log,  $http) {
     
 })

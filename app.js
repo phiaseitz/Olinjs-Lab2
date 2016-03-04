@@ -11,7 +11,8 @@ var index = require('./routes/index'); //all the routes
 
 // configuring the app =================
 // Heroku app mongo
-mongoose.connect(process.env.MONGOLAB_URI);
+var mongoConnection = process.env.MONGOLAB_URI || process.env.MONGOLAB_URI;
+mongoose.connect(mongoConnection);
 
 var db = mongoose.connection;
 
