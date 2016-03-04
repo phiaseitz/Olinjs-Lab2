@@ -32,5 +32,5 @@ pids
 # http://islegend.com/development/setting-global-gitignore-mac-windows/
 **/.DS_Store
 
-**/oauth.js
-**/facebookSDK.js
+# API Key Stuff
+**/apiKeys.js
