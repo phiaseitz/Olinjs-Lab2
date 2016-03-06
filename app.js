@@ -58,7 +58,7 @@ app.get('/auth/spotify/callback', auth.callback);
 
 app.get('/logout', auth.logout);
 
-app.get('/api/getAuthenticated', auth.sendAuthenticaed)
+app.get('/api/getAuthenticated', auth.sendAuthentication);
 
 // AngularJS requests
 app.get('*', function (req, res) {
