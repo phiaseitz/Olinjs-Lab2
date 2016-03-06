@@ -11,7 +11,6 @@ var authentication = {
     passport.deserializeUser(function(obj, done) {
       done(null, obj);
     });
-
     passport.use(new SpotifyStrategy({
       clientID: apiKeys.spotify.clientID,
       clientSecret: apiKeys.spotify.clientSecret,
@@ -29,16 +28,36 @@ var authentication = {
     }));
     return passport;
   },
-  login: function (req, res, next) {
+
+  spotifyAuth: function (req, res, next){
     console.log('spotifyAuth')
     passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true})(req, res, next)
   },
-  callback: function (req, res, next) {
+
+  callback: function (req, res, next){
     passport.authenticate('spotify', { failureRedirect: '/login', successRedirect: '/' })(req, res, next)
   },
-  ensureAuthenticated: function(req, res, next) {
+
+  ensureAuthenticated: function(req, res, next){
     if (req.isAuthenticated()) { return next(); }
-      res.redirect('/login');
+    res.redirect('/login');
+  },
+
+  sendAuthentication: function(req, res, next){
+    if (req.isAuthenticated()){
+      res.json({
+        authenticated: true, 
+        user: req.user,
+      })
+    } else {
+      res.json({
+        authenticated: false,
+      })
+    }
+  },
+  logout: function(req, res, next) {
+      req.logout();
+      next();
   }
 }
 

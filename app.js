@@ -44,6 +44,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+
 app.use(passport.initialize());
 app.use(passport.session())
 
@@ -55,12 +56,11 @@ app.get('/auth/spotify', auth.spotifyAuth);
 
 app.get('/auth/spotify/callback', auth.callback);
 
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
+app.get('/logout', auth.logout);
 
-//AngularJS requests
+app.get('/api/getAuthenticated', auth.sendAuthenticaed)
+
+// AngularJS requests
 app.get('*', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
