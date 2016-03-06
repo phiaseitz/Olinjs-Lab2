@@ -13,7 +13,7 @@ var app = angular.module('gitify', [
         controller: 'HomeController',
         resolve: {
           authentication: function(AuthService, $route) {
-            return AuthService.checkAuthenticated();
+            return AuthService.ensureAuthenticated();
           }
         }
       })
@@ -22,6 +22,6 @@ var app = angular.module('gitify', [
         templateUrl: 'partials/login.html',
         controller: 'LoginController'
       })
-
+      
     $locationProvider.html5Mode(true);
 }]);

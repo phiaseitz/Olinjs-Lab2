@@ -1,0 +1,194 @@
+/*public/style.css*/
+/*main css style sheet for styling the whole app style theme*/
+
+/* MAIN LAYOUT ============================================================== */
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  margin: 0;
+  background-color: #ffffff;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+header {
+  background-color: #333333;
+  color: white;
+  display: flex;
+}
+h1 {
+  margin: 0;
+}
+h3 {
+  margin: 0;
+}
+
+#section-content {
+  flex: 1;
+}
+
+/* FORM ELEMENTS ============================================================ */
+label, input, textarea, button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12pt;
+  display: block;
+}
+input {
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+  background-color: #eeeeee;
+  border-radius: 3px;
+  height: 2em;
+}
+input:focus {
+  outline:none;
+}
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+textarea {
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+  background-color: #eeeeee;
+  border-radius: 3px;
+}
+textarea:focus {
+  outline:none;
+}
+button {
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  color: #ffffff;
+  border: none;
+  background-color: #333333;
+  border-radius: 3px;
+}
+button:hover {
+  color: #ffffff;
+  border: none;
+  background-color: #222222;
+}
+button:active {
+  background-color: #222222;
+}
+.form-control {
+  padding: 6px;
+}
+/* CONTAINERS =============================================================== */
+.container-body {
+  width: 100%;
+}
+.container-limiting {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+}
+.container-content {
+  margin: 20px 0px;
+}
+.container-filter {
+  display: flex;
+  align-items: center;
+  padding: 12px 12px;
+}
+.container-search {
+  margin-top: 20px;
+}
+.container-count {
+  margin-top: 20px;
+}
+/* NAVIGATION =============================================================== */
+.logo {
+  flex: 1;
+  font-size: 1.5em;
+  padding: 12px 12px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+.filter {
+  float: right;
+  width: 200px;
+}
+
+/* TOPICS ==================================================================== */
+.topic-tabs {
+  display: flex;
+}
+.topic-tab {
+  flex: 1;
+  text-align: center;
+}
+.topic-header h2 {
+  margin: 0;
+  font-size: 16pt;
+  font-weight: 700;
+  padding: 10px;
+}
+.topic-header input {
+  font-size: 16pt;
+  font-weight: 700;
+  padding: 10px;
+  height: 46px;
+}
+.topic-content {
+  margin-top: 20px;
+  padding: 0px 0px 0px 20px;
+  border-left: solid black 2pt;
+}
+.topic-content p {
+  font-size: 12pt;
+  font-weight: 400;
+  padding: 10px;
+}
+.topic-content textarea {
+  font-size: 12pt;
+  font-weight: 400;
+  padding: 10px;
+}
+.container-mode-button {
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+.mode-button {
+  margin-left: 20px
+}
+.topic-tile {
+  position: relative;
+  height: 100px;
+  width: 100px;
+  background-color: #eeeeee;
+  border-radius: 3px;
+  margin: 0px 20px 20px 0px;
+  padding: 10px;
+  cursor: pointer;
+}
+.topic-tile:hover {
+  background-color: #f3f3f3;
+}
+.topic-tile-new {
+  background-color: #dddddd;
+}
+.topic-list {
+  margin-top: 20px;
+  display: flex;
+  -webkit-flex-wrap: wrap; /* Safari */
+  flex-wrap: wrap;
+}
