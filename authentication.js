@@ -31,7 +31,7 @@ var authentication = {
 
   spotifyAuth: function (req, res, next){
     console.log('spotifyAuth')
-    passport.authenticate('spotify', {showDialog: true})(req, res, next)
+    passport.authenticate('spotify', {scope: ['user-read-private'], showDialog: true})(req, res, next)
   },
 
   callback: function (req, res, next){

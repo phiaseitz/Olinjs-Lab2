@@ -1,4 +1,20 @@
 <div class="container-card">
   You're home! Yay!
+  <div id = playlist-buttons>
+  	<button 
+  		ng-repeat="playlist in userPlaylists"
+  		ng-click="showPlaylist(playlist)"
+  		id = "playlist-{{playlist.id}}">
+  		{{playlist.name}}
+  	</button>
+  </div>
 
+  <div ng-model="currentPlaylist" ng-if="currentPlaylist.name">
+  	<p 
+  		ng-repeat = "track in currentPlaylist.tracks.items">
+  		{{track.track.name}}
+  	</p>
+  	
+  </div>
+ 
 </div>
