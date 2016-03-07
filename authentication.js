@@ -18,20 +18,20 @@ var authentication = {
       },
       function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
-        process.nextTick(function () {
           // To keep the example simple, the user's spotify profile is returned to
           // represent the logged-in user. In a typical application, you would want
           // to associate the spotify account with a user record in your database,
           // and return that user instead.
-          return done(null, profile);
-        });
+          profile.accessToken = accessToken;
+        return done(null, profile);
+        
     }));
     return passport;
   },
 
   spotifyAuth: function (req, res, next){
     console.log('spotifyAuth')
-    passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true})(req, res, next)
+    passport.authenticate('spotify', {showDialog: true})(req, res, next)
   },
 
   callback: function (req, res, next){
@@ -48,11 +48,11 @@ var authentication = {
       res.json({
         authenticated: true, 
         user: req.user,
-      })
+      });
     } else {
       res.json({
         authenticated: false,
-      })
+      });
     }
   },
   logout: function(req, res, next) {
