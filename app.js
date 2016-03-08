@@ -56,6 +56,7 @@ app.get('/auth/spotify/callback', auth.callback);
 app.get('/logout', auth.logout);
 app.get('/api/getAuthenticated', auth.sendAuthentication);
 app.get('/api/getPlaylists', routes.getPlaylists);
+app.get('/api/getPlaylist', routes.getPlaylist);
 
 // POST requests
 app.post('/api/trackPlaylist', routes.trackPlaylist);

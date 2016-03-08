@@ -43,9 +43,15 @@ app.service('PlaylistService', function($http, $q) {
     });
   };
 
-  this.getPlaylists = function(playlists) {
+  this.getPlaylist = function(playlist) {
+    return this.send('GET', '/api/getPlaylist', {
+      id: playlist
+    });
+  };
+
+  this.getPlaylists = function(user) {
     return this.send('GET', '/api/getPlaylists', {
-      playlists: playlists
+      user: user
     });
   };
 

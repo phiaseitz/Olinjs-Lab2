@@ -13,6 +13,10 @@ var State = mongoose.Schema({
 });
 
 var Playlist = mongoose.Schema({
+  user: {
+    type: String,
+    required: true
+  },
   id: {
     type: String,
     required: true
