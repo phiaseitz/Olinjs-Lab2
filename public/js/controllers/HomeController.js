@@ -1,16 +1,15 @@
 // public/js/controllers/HomeController.js
 
-app.controller('HomeController', function($scope, authentication, Spotify) {
-	console.log(authentication)
-
+app.controller('HomeController', function($scope, AuthService, Spotify) {
+	console.log(AuthService.permissions);
 	$scope.currentPlaylist = {};
 
 	// Spotify Auth stuff. This is the authentication token we get when we 
 	// authenticate with passport-spotify. 
-	Spotify.setAuthToken(authentication.user.accessToken)
+	Spotify.setAuthToken(AuthService.permissions.user.accessToken)
 
 	// Get the user's playlists. 
-	Spotify.getUserPlaylists(authentication.user.id).then(function (data){
+	Spotify.getUserPlaylists(AuthService.permissions.user.id).then(function (data){
 		$scope.userPlaylists = data.items.sort(function (a,b){
 			if(a.name > b.name) {
 				return 1;

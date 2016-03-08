@@ -44,7 +44,7 @@ app.service('AuthService', function($http, $q, $rootScope, $location) {
             deferred.resolve();
         });
       }
-      deferred.resolve(service.permissions);
+      deferred.resolve();
     });
     return deferred.promise;
   };
