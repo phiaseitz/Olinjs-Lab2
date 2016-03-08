@@ -22,4 +22,5 @@ var routes = {
   },
   untrackPlaylist: function(req, res) {
 
-  };
+  }
+};
