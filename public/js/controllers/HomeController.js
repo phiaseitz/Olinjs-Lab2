@@ -1,5 +1,4 @@
 // public/js/controllers/HomeController.js
-
 app.controller('HomeController', function($scope, AuthService, Spotify) {
 	$scope.currentPlaylist = {};
 
@@ -26,7 +25,6 @@ app.controller('HomeController', function($scope, AuthService, Spotify) {
 			}
 		});
 	});
-
 	//Get the users's tracked playlists
 
 	//Populate those playlists
