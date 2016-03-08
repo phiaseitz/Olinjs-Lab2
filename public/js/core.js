@@ -1,7 +1,8 @@
 // Create the controller. This is what controls the app. 
 var app = angular.module('gitify', [
     'ngRoute',
-    'spotify'
+    'spotify',
+    'ngMaterial'
   ])
 
 .config(['$routeProvider', '$locationProvider',
