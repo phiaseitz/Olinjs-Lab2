@@ -2,9 +2,12 @@
 app.controller('HomeController', function($scope, AuthService, Spotify) {
 	$scope.currentPlaylist = {};
 
+	//Get the playlists that the user is tracking!
+
+
 	// Spotify Auth stuff. This is the authentication token we get when we 
 	// authenticate with passport-spotify. 
-	Spotify.setAuthToken(AuthService.permissions.user.accessToken)
+	Spotify.setAuthToken(AuthService.permissions.user.accessToken);
 
 	// Get the user's playlists. 
 	Spotify.getUserPlaylists(AuthService.permissions.user.id).then(function (data){
@@ -12,7 +15,10 @@ app.controller('HomeController', function($scope, AuthService, Spotify) {
 		data.items.forEach(function (playlist){
 			Spotify.getPlaylist(playlist.owner.id, playlist.id).then(function(data){
 				playlist.tracks = data.tracks;
-			})
+			});
+
+			//if the playlist is a currently tracked playlist, add that to the playlist object
+			playlist.isTracked = false;
 		});
 
 		$scope.userPlaylists = data.items.sort(function (a,b){
