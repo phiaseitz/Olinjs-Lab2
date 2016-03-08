@@ -30,10 +30,22 @@ h3 {
 /* Angular Material ========================================================= */
 #playlist-buttons {
   width: 30%;
+  margin: 50px;
+}
+
+#playlist-content {
+  width:70%;
+  margin: 50px;
 }
 
 .playlist-button {
   width: 100%;
+  margin: 2px;
+
+}
+
+.playlist-header {
+  display: inline-block;
 }
 
 /* FORM ELEMENTS ============================================================ */
