@@ -51,14 +51,17 @@ app.use(passport.session())
 // ROUTES ======================================================================
 
 // GET requests
-
 app.get('/auth/spotify', auth.spotifyAuth);
-
 app.get('/auth/spotify/callback', auth.callback);
-
 app.get('/logout', auth.logout);
-
 app.get('/api/getAuthenticated', auth.sendAuthentication);
+app.get('/api/getPlaylists', routes.getPlaylists);
+
+// POST requests
+app.post('/api/trackPlaylist', routes.trackPlaylist);
+app.post('/api/savePlaylist', routes.savePlaylist);
+app.post('/api/revertPlaylist', routes.revertPlaylist);
+app.post('/api/untrackPlaylist', routes.untrackPlaylist);
 
 // AngularJS requests
 app.get('*', function (req, res) {
