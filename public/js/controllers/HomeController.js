@@ -1,7 +1,6 @@
 // public/js/controllers/HomeController.js
 
 app.controller('HomeController', function($scope, AuthService, Spotify) {
-	console.log(AuthService.permissions);
 	$scope.currentPlaylist = {};
 
 	// Spotify Auth stuff. This is the authentication token we get when we 
@@ -10,6 +9,13 @@ app.controller('HomeController', function($scope, AuthService, Spotify) {
 
 	// Get the user's playlists. 
 	Spotify.getUserPlaylists(AuthService.permissions.user.id).then(function (data){
+		
+		data.items.forEach(function (playlist){
+			Spotify.getPlaylist(playlist.owner.id, playlist.id).then(function(data){
+				playlist.tracks = data.tracks;
+			})
+		});
+
 		$scope.userPlaylists = data.items.sort(function (a,b){
 			if(a.name > b.name) {
 				return 1;
@@ -21,11 +27,16 @@ app.controller('HomeController', function($scope, AuthService, Spotify) {
 		});
 	});
 
+	//Get the users's tracked playlists
+
+	//Populate those playlists
+
+	//Post those playlist states back to the server
+
+	
+	//Show a users's playlists. 
 	$scope.showPlaylist = function(playlist) {
-		Spotify.getPlaylist(playlist.owner.id, playlist.id).then(function(data){
-			console.log(data);
-			$scope.currentPlaylist = data;
-		})
+		$scope.currentPlaylist = playlist
 	}
 
 	// When we actually get to reverting, we have the methods 

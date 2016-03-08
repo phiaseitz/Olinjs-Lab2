@@ -28,8 +28,13 @@ h3 {
 }
 
 /* Angular Material ========================================================= */
+#playlist-buttons {
+  width: 30%;
+}
 
-
+.playlist-button {
+  width: 100%;
+}
 
 /* FORM ELEMENTS ============================================================ */
 label, input, textarea, button {
