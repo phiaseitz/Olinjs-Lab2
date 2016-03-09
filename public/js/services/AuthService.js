@@ -38,12 +38,12 @@ app.service('AuthService', function($http, $q, $rootScope, $location) {
     var service = this;
     service.getAuthenticated().then(function success(response) {
       service.permissions = response.data;
-      if (!service.permissions.authenticated) {
-        $location.path(routeForUnauthorizedAccess);
-        $rootScope.$on('$locationChangeSuccess', function (next, current) {
-            deferred.resolve();
-        });
-      }
+      // if (!service.permissions.authenticated) {
+      //   $location.path(routeForUnauthorizedAccess);
+      //   $rootScope.$on('$locationChangeSuccess', function (next, current) {
+      //       deferred.resolve();
+      //   });
+      // }
       deferred.resolve();
     });
     return deferred.promise;

@@ -1,9 +1,16 @@
-<div 
-  class="container-card"
-  layout="row">
-  <div 
-    id = playlist-buttons
-    layout="column">
+<div class="container-card">
+  <div ng-model = "authenticated" ng-if = "authenticated"> 
+  <button ng-click="logout()">
+    Logout
+  </button>
+
+  </div>
+
+  <div ng-model = "authenticated" ng-if = "!authenticated">
+    <button ng-click="login()">
+      Login with Spotify
+    </button>
+  </div>
 
       <h3>Your Playlists</h3>
       <div ng-repeat="playlist in userPlaylists" >

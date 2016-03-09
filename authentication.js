@@ -57,7 +57,8 @@ var authentication = {
   },
   logout: function(req, res, next) {
       req.logout();
-      next();
+      res.redirect("/")
+      // next();
   }
 }
 

@@ -2,6 +2,8 @@
 app.controller('HomeController', function($scope, AuthService, PlaylistService, Spotify) {
 	$scope.currentPlaylist = {};
 
+	$scope.authenticated = AuthService.permissions.authenticated;
+
 	//Get the playlists that the user is tracking!
 	PlaylistService.getPlaylists(AuthService.permissions.user.id).then(function(playlists){
 		var playlistIds = playlists.map(function(playlist){
@@ -60,8 +62,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		
 	}
 
-<<<<<<< HEAD
-=======
 
 	$scope.trackPlaylist = function(playlist){
 		var songListIds = playlist.tracks.items.map(function (track){
@@ -77,7 +77,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		
 	}
 
->>>>>>> 53c29b60b172e7de69519bdeb1d22e0a74b47015
 	$scope.untrackPlaylist = function(playlist){
 		PlaylistService.untrackPlaylist(playlist.id).then(function(response){
 			console.log(response);
@@ -103,6 +102,15 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 
 	//If the playlist does not belong to the current user, we should create a new playlist for that user with the version they want? 
 	// Do we copy over the history for that playlist? 
+
+
+	$scope.login = function() {
+		window.location.href = '/auth/spotify';
+	};
+
+	$scope.logout = function() {
+		window.location.href = '/logout';
+	};
 });
 
 function getPlaylistSongs(playlist){
@@ -114,3 +122,4 @@ function getPlaylistSongs(playlist){
 
 	return songListIds;
 }
+
