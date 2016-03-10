@@ -1,3 +1,77 @@
+<md-card id="main-content" >
+  <div layout="row">
+
+    <div flex="33">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>
+            <span>Playlists</span>
+          </h2>
+        </div>
+      </md-toolbar>
+
+      <md-list flex layout-padding="10px">
+        <md-list-item md-ink-ripple
+            class="md-clickable"
+            ng-repeat="playlist in userPlaylists"
+            ng-click="showPlaylist(playlist)"
+            ng-class="{tracked: playlist.isTracked}">
+          <div class="md-list-item-text" layout="column">
+            <p>{{ playlist.name }}</p>
+          </div>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>      
+
+      </md-list>
+    </div>
+
+    <div flex="66">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>
+            <span><b>{{currentPlaylist.name}}</b></span>
+          </h2>
+          <span flex=""></span>
+          <div ng-switch="currentPlaylist.isTracked">
+            <div class="action-button-container" ng-switch-when="true">
+              <md-select
+                  ng-model="user.state">
+                <md-option ng-repeat="state in currentPlaylist.states" value="{{$index}}">
+                  {{state.date}}
+                </md-option>
+              </md-select>
+              <md-button class="md-raised" type="button" aria-label="Revert">
+                Revert
+              </md-button>
+              <md-button class="md-raised" type="button" aria-label="Untrack">
+                Untrack
+              </md-button>
+            </div>
+            <div class="action-button-container" ng-switch-when="false">
+              <md-button class="md-raised" type="button" aria-label="Track">
+                Track
+              </md-button>
+            </div>
+
+          </div>
+        </div>
+      </md-toolbar>
+      
+      <md-list flex layout-padding="10px">
+        <md-list-item ng-repeat="track in currentPlaylist.tracks.items">
+          <div class="md-list-item-text" layout="column">
+            <p>{{track.track.name}}</p>
+          </div>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>    
+      </md-list>
+    </div>
+
+  </div>
+</md-card>
+
+
+
 <div 
   class="container-card"
   layout="row">
