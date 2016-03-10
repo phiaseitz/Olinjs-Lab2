@@ -11,7 +11,8 @@ var routes = {
     });
   },
   getPlaylist: function(req, res) {
-    Playlist.findOne({playlistId: req.body.id}, function(err, playlist) {
+    console.log(req.query)
+    Playlist.findOne({playlistId: req.query.id}, function(err, playlist) {
       res.json(playlist);
     });
   },
