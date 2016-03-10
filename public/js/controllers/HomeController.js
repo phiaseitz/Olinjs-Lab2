@@ -1,16 +1,15 @@
 // public/js/controllers/HomeController.js
 app.controller('HomeController', function($scope, AuthService, PlaylistService, Spotify) {
-	$scope.currentPlaylist = {};
+	$scope.currentPlaylist = {
+	};
 
 	//Get the playlists that the user is tracking!
 	PlaylistService.getPlaylists(AuthService.permissions.user.id).then(function(playlists){
 		var playlistIds = playlists.map(function(playlist){
-			return playlist.id;
+			return playlist.playlistId;
 		});
 
 		$scope.trackedPlaylists = playlistIds || [];
-
-		console.log($scope.trackedPlaylists)
 
 		// Spotify Auth stuff. This is the authentication token we get when we 
 		// authenticate with passport-spotify. 
@@ -26,14 +25,16 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 
 					//if the playlist is a currently tracked playlist, add that to the playlist object
 					if ($scope.trackedPlaylists.indexOf(playlist.id) >= 0){
-						playlist.isTracked = true;
-
-						PlaylistService.savePlaylist(playlist.id, getPlaylistSongs(populatedPlaylist)).then(function(response){
-							console.log("saved!");
-						});
+						PlaylistService.getPlaylist(playlist.id).then(function(response) {
+							playlist.isTracked = true;
+							playlist.states = response.body.states;
+							PlaylistService.savePlaylist(playlist.id, getPlaylistSongs(populatedPlaylist)).then(function(response){
+								console.log("saved!");
+							});
+						})
 					} else {
 						playlist.isTracked = false;
-					}	
+					}
 				});
 			});
 			
@@ -60,8 +61,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		
 	}
 
-<<<<<<< HEAD
-=======
 
 	$scope.trackPlaylist = function(playlist){
 		var songListIds = playlist.tracks.items.map(function (track){
@@ -77,7 +76,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		
 	}
 
->>>>>>> 53c29b60b172e7de69519bdeb1d22e0a74b47015
 	$scope.untrackPlaylist = function(playlist){
 		PlaylistService.untrackPlaylist(playlist.id).then(function(response){
 			console.log(response);
@@ -98,7 +96,8 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 	
 	//Show a users's playlists. 
 	$scope.showPlaylist = function(playlist) {
-		$scope.currentPlaylist = playlist
+		$scope.currentPlaylist = playlist;
+		console.log($scope.currentPlaylist);
 	}
 
 	//If the playlist does not belong to the current user, we should create a new playlist for that user with the version they want? 
