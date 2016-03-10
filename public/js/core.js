@@ -1,6 +1,8 @@
 // Create the controller. This is what controls the app. 
 var app = angular.module('gitify', [
-    'ngRoute'
+    'ngRoute',
+    'spotify',
+    'ngMaterial'
   ])
 
 .config(['$routeProvider', '$locationProvider',
@@ -14,7 +16,7 @@ var app = angular.module('gitify', [
         resolve: {
           authentication: function(AuthService, $route) {
             return AuthService.ensureAuthenticated();
-          }
+          },
         }
       })
 

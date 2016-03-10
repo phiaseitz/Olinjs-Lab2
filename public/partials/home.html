@@ -1,4 +1,68 @@
-<div class="container-card">
-  You're home! Yay!
+<div 
+  class="container-card"
+  layout="row">
+  <div 
+    id = playlist-buttons
+    layout="column">
 
+      <h3>Your Playlists</h3>
+      <div ng-repeat="playlist in userPlaylists" >
+          <button 
+            ng-click="showPlaylist(playlist)"
+            id = "playlist-{{playlist.id}}"
+            class = "playlist-button"
+            ng-class="{tracked: playlist.isTracked}">
+            {{playlist.name}}
+          </button>
+      </div>
+
+  </div>
+
+  <div id = "playlist-content">
+    <div id= "current-playlist" ng-model="currentPlaylist" ng-if="currentPlaylist.name">
+      <md-list>
+        <div class="playlist-header">
+          <h3>{{currentPlaylist.name}}</h3>
+          
+          <div
+            ng-model="currentPlaylist"
+            ng-if="currentPlaylist.isTracked"> 
+              <button>
+                Untrack Playlist
+              </button>
+              <button>
+                See Revision History
+              </button>
+          </div>
+          
+          <div
+            ng-model="currentPlaylist"
+            ng-if="!currentPlaylist.isTracked"
+            ng-click="setTrackedPlaylist(currentPlaylist)"> 
+              <button>
+                Track Playlist
+              </button>
+          </div>
+          
+        </div>
+        
+        <md-divider ></md-divider>
+
+        <div ng-repeat = "track in currentPlaylist.tracks.items">
+          <md-list-item >
+            <md-subheader> {{track.track.name}} </md-subheader>
+          </md-list-item>
+          <md-divider ></md-divider>
+        </div>
+      </md-list>  
+    </div>
+  </div>
+
+  <div ng-model="currentPlaylist" ng-if="currentPlaylist.name">
+  	<p 
+  		ng-repeat = "track in currentPlaylist.tracks.items">
+  		{{track.track.name}}
+  	</p>
+  
+  </div>
 </div>

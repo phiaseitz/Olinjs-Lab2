@@ -14,7 +14,7 @@ body {
 header {
   background-color: #333333;
   color: white;
-  display: flex;
+  /*display: flex;*/
 }
 h1 {
   margin: 0;
@@ -25,6 +25,27 @@ h3 {
 
 #section-content {
   flex: 1;
+}
+
+/* Angular Material ========================================================= */
+#playlist-buttons {
+  width: 30%;
+  margin: 50px;
+}
+
+#playlist-content {
+  width:70%;
+  margin: 50px;
+}
+
+.playlist-button {
+  width: 100%;
+  margin: 2px;
+
+}
+
+.playlist-header {
+  display: inline-block;
 }
 
 /* FORM ELEMENTS ============================================================ */
