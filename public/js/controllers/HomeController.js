@@ -60,6 +60,24 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		
 	}
 
+<<<<<<< HEAD
+=======
+
+	$scope.trackPlaylist = function(playlist){
+		var songListIds = playlist.tracks.items.map(function (track){
+			console.log(track.track.id);
+			return track.track.id;
+		})
+		PlaylistService.trackPlaylist(playlist.id, songListIds).then(function(response){
+			console.log(response);
+			if (response.success) {
+				playlist.isTracked = true;
+			}
+		})
+		
+	}
+
+>>>>>>> 53c29b60b172e7de69519bdeb1d22e0a74b47015
 	$scope.untrackPlaylist = function(playlist){
 		PlaylistService.untrackPlaylist(playlist.id).then(function(response){
 			console.log(response);
