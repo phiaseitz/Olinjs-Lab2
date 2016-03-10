@@ -17,7 +17,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		data.items.forEach(function (playlist){
 			Spotify.getPlaylist(playlist.owner.id, playlist.id).then(function(populatedPlaylist){
 				playlist.tracks = populatedPlaylist.tracks;
-				// console.log(data.tracks)
+				// console.log(populatedPlaylist.tracks)
 			});
 
 			//if the playlist is a currently tracked playlist, add that to the playlist object
@@ -39,13 +39,29 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		
 
 
-	// $scope.setTrackedPlaylist(playlist){
-	// 	var songListIds = playlist.tracks.items.map(function (track){
-	// 		return track.
+	$scope.trackPlaylist = function(playlist){
+		var songListIds = playlist.tracks.items.map(function (track){
+			console.log(track.track.id);
+			return track.track.id;
+		})
+		PlaylistService.trackPlaylist(playlist.id, songListIds).then(function(response){
+			console.log(response);
+			if (response.success) {
+				playlist.isTracked = true;
+			}
+		})
+		
+	}
 
-	// 	})
-	// 	PlaylistService.trackPlaylist(playlist.id)
-	// }
+	$scope.untrackPlaylist = function(playlist){
+		PlaylistService.untrackPlaylist(playlist.id).then(function(response){
+			console.log(response);
+			if (response.success) {
+				playlist.isTracked = false;
+			}
+		})
+		
+	}
 
 
 	//Get the users's tracked playlists

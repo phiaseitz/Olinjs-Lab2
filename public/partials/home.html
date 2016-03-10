@@ -26,7 +26,8 @@
           
           <div
             ng-model="currentPlaylist"
-            ng-if="currentPlaylist.isTracked"> 
+            ng-if="currentPlaylist.isTracked"
+            ng-click="untrackPlaylist(currentPlaylist)"> 
               <button>
                 Untrack Playlist
               </button>
@@ -38,7 +39,7 @@
           <div
             ng-model="currentPlaylist"
             ng-if="!currentPlaylist.isTracked"
-            ng-click="setTrackedPlaylist(currentPlaylist)"> 
+            ng-click="trackPlaylist(currentPlaylist)"> 
               <button>
                 Track Playlist
               </button>
@@ -56,13 +57,5 @@
         </div>
       </md-list>  
     </div>
-  </div>
-
-  <div ng-model="currentPlaylist" ng-if="currentPlaylist.name">
-  	<p 
-  		ng-repeat = "track in currentPlaylist.tracks.items">
-  		{{track.track.name}}
-  	</p>
-  
   </div>
 </div>
