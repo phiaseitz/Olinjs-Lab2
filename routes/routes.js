@@ -16,13 +16,17 @@ var routes = {
     });
   },
   trackPlaylist: function(req, res) {
-    Playlist.create({
-      user: req.user._id,
+    var playlist = new Playlist({
+      user: req.user.id,
       id: req.body.id,
-      states: [req.body.songs]
-    }, function (err, playlist) {
-      playlist.success = !err;
-      res.json(playlist);
+      states: {
+        songs: [req.body.songs],
+        date: new Date()}
+    });
+
+    playlist.save(function (err) {
+      console.log(err);
+      res.json({playlist: playlist, success: !err});
     });
   },
   savePlaylist: function(req, res) {
