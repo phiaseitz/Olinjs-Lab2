@@ -27,35 +27,58 @@
 
     <div flex="66">
       <md-toolbar>
-        <div class="md-toolbar-tools">
-          <h2>
-            <span><b>{{currentPlaylist.name}}</b></span>
-          </h2>
-          <span flex=""></span>
-          <div ng-switch="currentPlaylist.isTracked">
-            <div class="action-button-container" ng-switch-when="true">
-              <md-select
-                  ng-model="user.state">
-                <md-option ng-repeat="state in currentPlaylist.states" value="{{$index}}">
-                  {{state.date}}
-                </md-option>
-              </md-select>
-              <md-button class="md-raised" type="button" aria-label="Revert">
-                Revert
-              </md-button>
-              <md-button class="md-raised" type="button" aria-label="Untrack">
-                Untrack
-              </md-button>
-            </div>
-            <div class="action-button-container" ng-switch-when="false">
-              <md-button class="md-raised" type="button" aria-label="Track">
+        <div ng-switch="currentPlaylist.isTracked">
+          <div ng-switch-when="false">
+            <div class="md-toolbar-tools">
+              <h2>
+                <span><b>{{currentPlaylist.name}}</b></span>
+              </h2>
+              <span flex=""></span>            
+              <md-button
+                  class="md-raised"
+                  type="button"
+                  aria-label="Track"
+                  ng-click="trackPlaylist(currentPlaylist)">
                 Track
               </md-button>
             </div>
-
+          </div>
+          <div ng-switch-when="true">
+            <div class="md-toolbar-tools">
+              <h2>
+                <span><b>{{currentPlaylist.name}}</b></span>
+              </h2>
+              <span flex=""></span>            
+              <md-button
+                  class="md-raised"
+                  type="button"
+                  aria-label="Untrack"
+                  ng-click="untrackPlaylist(currentPlaylist)">
+                Untrack
+              </md-button>
+            </div>
           </div>
         </div>
       </md-toolbar>
+
+      <div class="action-button-container" ng-if="currentPlaylist.isTracked">
+        <md-toolbar style="background-color: gray;">
+          <div class="md-toolbar-tools">
+            <span flex=""></span>             
+            <md-select
+                ng-model="user.state"
+                aria-label="States">
+              <md-option ng-repeat="state in currentPlaylist.states" value="{{$index}}">
+                {{state.date}}
+              </md-option>
+            </md-select>
+            <md-button class="md-raised md-primary" type="button" aria-label="Revert">
+              Revert
+            </md-button>
+          </div>
+        </md-toolbar>
+      </div>
+
       
       <md-list flex layout-padding="10px">
         <md-list-item ng-repeat="track in currentPlaylist.tracks.items">
