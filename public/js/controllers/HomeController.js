@@ -28,9 +28,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 						PlaylistService.getPlaylist(playlist.id).then(function(response) {
 							playlist.isTracked = true;
 							playlist.states = response.body.states;
-							PlaylistService.savePlaylist(playlist.id, getPlaylistSongs(populatedPlaylist)).then(function(response){
-								console.log("saved!");
-							});
 						})
 					} else {
 						playlist.isTracked = false;
@@ -87,11 +84,12 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 	}
 
 
-	//Get the users's tracked playlists
-
-	//Populate those playlists
-
-	//Post those playlist states back to the server
+	$scope.commitPlaylist =  function(playlist){
+		console.log(playlist)
+		PlaylistService.savePlaylist(playlist.id, getPlaylistSongs(playlist)).then(function(response){
+			console.log("saved!");
+		});
+	}
 
 	
 	//Show a users's playlists. 
