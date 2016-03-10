@@ -16,6 +16,7 @@ app.controller('HomeController', function($scope, AuthService, Spotify) {
 		data.items.forEach(function (playlist){
 			Spotify.getPlaylist(playlist.owner.id, playlist.id).then(function(data){
 				playlist.tracks = data.tracks;
+				console.log(data.tracks)
 			});
 
 			//if the playlist is a currently tracked playlist, add that to the playlist object
@@ -50,6 +51,14 @@ app.controller('HomeController', function($scope, AuthService, Spotify) {
 	// removePlaylistTracks
 	// reorderPlaylistTracks
 	// replacePlaylistTracks
+
+	//Test! This is the add playlist!
+
+	Spotify
+		.replacePlaylistTracks(AuthService.permissions.user.id, '1JiVnZwDOmppTt1yeoqoRe', ['1bhjMY5O0ZjB41OHcdRH0a', '1bhjMY5O0ZjB41OHcdRH0a'])
+		.then(function (data) {
+			console.log('tracks removed from playlist');
+		});
 
 	//If the playlist does not belong to the current user, we should create a new playlist for that user with the version they want? 
 	// Do we copy over the history for that playlist? 
