@@ -17,7 +17,7 @@ var Playlist = mongoose.Schema({
     type: String,
     required: true
   },
-  id: {
+  playlistId: {
     type: String,
     required: true
   },
