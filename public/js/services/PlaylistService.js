@@ -45,7 +45,7 @@ app.service('PlaylistService', function($http, $q) {
 
   this.getPlaylist = function(playlist) {
     return this.send('GET', '/api/getPlaylist', {
-      id: playlist
+      params:{id: playlist}
     });
   };
 

@@ -11,7 +11,8 @@ var routes = {
     });
   },
   getPlaylist: function(req, res) {
-    Playlist.findOne({playlistId: req.body.id}, function(playlist) {
+    console.log(req.query)
+    Playlist.findOne({playlistId: req.query.id}, function(err, playlist) {
       res.json(playlist);
     });
   },
@@ -19,9 +20,9 @@ var routes = {
     var playlist = new Playlist({
       user: req.user.id,
       playlistId: req.body.id,
-      states: {
+      states: [{
         songs: [req.body.songs],
-        date: new Date()}
+        date: new Date()}]
     });
 
     playlist.save(function (err) {
@@ -30,10 +31,10 @@ var routes = {
     });
   },
   savePlaylist: function(req, res) {
-    Playlist.findOne({playlistId: req.body.id}, function(playlist) {
+    console.log(req.body);
+    Playlist.findOne({playlistId: req.body.id}, function(err, playlist) {
       console.log(playlist)
-      playlist.states.songs.unshift(req.body.songs);
-      playlist.states.date.unshift(new Date())
+      playlist.states.unshift({songs: req.body.songs, date: new Date()});
       playlist.save(function(err) {
         playlist.success = !err;
         res.json(playlist);
@@ -41,7 +42,7 @@ var routes = {
     });
   },
   revertPlaylist: function(req, res) {
-    Playlist.findOne({playlistId: req.body.id}, function(playlist) {
+    Playlist.findOne({playlistId: req.body.id}, function(err, playlist) {
       playlist.states.unshift(playlist[req.body.state]);
       playlist.save(function(err) {
         playlist.success = !err;

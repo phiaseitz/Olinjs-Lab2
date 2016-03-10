@@ -66,8 +66,12 @@
           <div class="md-toolbar-tools">
             <span flex=""></span>             
             <md-select
-                ng-model="user.state"
-                aria-label="States">
+                ng-model="currentPlaylist.displayedStateIndex"
+                aria-label="States"
+                ng-change="updateDisplayedState()">
+              <md-option value="-1">
+                Current Version on Spotify
+              </md-option>
               <md-option ng-repeat="state in currentPlaylist.states" value="{{$index}}">
                 {{state.date}}
               </md-option>
@@ -75,15 +79,18 @@
             <md-button class="md-raised md-primary" type="button" aria-label="Revert">
               Revert
             </md-button>
+            <md-button class="md-raised md-primary" type="button" aria-label="Commit" ng-click="commitPlaylist(currentPlaylist)">
+              Commit
+            </md-button>
           </div>
         </md-toolbar>
       </div>
 
       
       <md-list flex layout-padding="10px">
-        <md-list-item ng-repeat="track in currentPlaylist.tracks.items">
+        <md-list-item ng-repeat="trackTitle in currentPlaylist.displayedState.songTitles track by $index">
           <div class="md-list-item-text" layout="column">
-            <p>{{track.track.name}}</p>
+            <p>{{trackTitle}}</p>
           </div>
           <md-divider ng-if="!$last"></md-divider>
         </md-list-item>    
@@ -92,67 +99,3 @@
 
   </div>
 </md-card>
-
-
-
-<div 
-  class="container-card"
-  layout="row">
-  <div 
-    id = playlist-buttons
-    layout="column">
-
-      <h3>Your Playlists</h3>
-      <div ng-repeat="playlist in userPlaylists" >
-          <button 
-            ng-click="showPlaylist(playlist)"
-            id = "playlist-{{playlist.id}}"
-            class = "playlist-button"
-            ng-class="{tracked: playlist.isTracked}">
-            {{playlist.name}}
-          </button>
-      </div>
-
-  </div>
-
-  <div id = "playlist-content">
-    <div id= "current-playlist" ng-model="currentPlaylist" ng-if="currentPlaylist.name">
-      <md-list>
-        <div class="playlist-header" ng-switch="currentPlaylist.isTracked">
-          <h3>{{currentPlaylist.name}}</h3>
-          
-          <div
-            ng-model="currentPlaylist"
-            ng-switch-when="true"
-            ng-click="untrackPlaylist(currentPlaylist)"> 
-              <button>
-                Untrack Playlist
-              </button>
-              <button>
-                See Revision History
-              </button>
-          </div>
-          
-          <div
-            ng-model="currentPlaylist"
-            ng-switch-when="false"
-            ng-click="trackPlaylist(currentPlaylist)"> 
-              <button>
-                Track Playlist
-              </button>
-          </div>
-          
-        </div>
-        
-        <md-divider ></md-divider>
-
-        <div ng-repeat = "track in currentPlaylist.tracks.items">
-          <md-list-item >
-            <md-subheader> {{track.track.name}} </md-subheader>
-          </md-list-item>
-          <md-divider ></md-divider>
-        </div>
-      </md-list>  
-    </div>
-  </div>
-</div>
