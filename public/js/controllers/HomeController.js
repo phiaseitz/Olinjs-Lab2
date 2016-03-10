@@ -4,9 +4,13 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 
 	//Get the playlists that the user is tracking!
 	PlaylistService.getPlaylists(AuthService.permissions.user.id).then(function(playlists){
-		$scope.trackedPlaylists = playlists || [];
+		var playlistIds = playlists.map(function(playlist){
+			return playlist.id;
+		});
 
-		console.log(playlists)
+		$scope.trackedPlaylists = playlistIds || [];
+
+		console.log($scope.trackedPlaylists)
 
 		// Spotify Auth stuff. This is the authentication token we get when we 
 		// authenticate with passport-spotify. 
@@ -19,20 +23,19 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 				Spotify.getPlaylist(playlist.owner.id, playlist.id).then(function(populatedPlaylist){
 					playlist.tracks = populatedPlaylist.tracks;
 					// console.log(populatedPlaylist.tracks)
-				});
 
-				//if the playlist is a currently tracked playlist, add that to the playlist object
-				if ($scope.trackedPlaylists.indexOf(playlist.id) > 0){
-					playlist.isTracked = true;
+					//if the playlist is a currently tracked playlist, add that to the playlist object
+					if ($scope.trackedPlaylists.indexOf(playlist.id) >= 0){
+						playlist.isTracked = true;
 
-					PlaylistService.savePlaylist(playlist.id, getPlaylistSongs(playlist)).then(function(response){
-						console.log("saved!");
-					});
-				} else {
-					playlist.isTracked = false;
-				}
-				
+						PlaylistService.savePlaylist(playlist.id, getPlaylistSongs(populatedPlaylist)).then(function(response){
+							console.log("saved!");
+						});
+					} else {
+						playlist.isTracked = false;
+					}	
 				});
+			});
 			
 			$scope.userPlaylists = data.items.sort(function (a,b){
 				if(a.name > b.name) {
@@ -85,6 +88,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 });
 
 function getPlaylistSongs(playlist){
+	console.log(playlist.tracks.items)
 	var songListIds = playlist.tracks.items.map(function (track){
 		console.log(track.track.id);
 		return track.track.id;
