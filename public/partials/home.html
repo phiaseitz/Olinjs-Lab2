@@ -35,7 +35,8 @@
           
           <div
             ng-model="currentPlaylist"
-            ng-if="!currentPlaylist.isTracked"> 
+            ng-if="!currentPlaylist.isTracked"
+            ng-click="setTrackedPlaylist(currentPlaylist)"> 
               <button>
                 Track Playlist
               </button>
