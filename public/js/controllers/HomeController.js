@@ -50,7 +50,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 
 	$scope.trackPlaylist = function(playlist){
 		PlaylistService.trackPlaylist(playlist.id, getPlaylistSongs(playlist)).then(function(response){
-			console.log(response);
 			if (response.success) {
 				playlist.isTracked = true;
 			}
@@ -61,11 +60,9 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 
 	$scope.trackPlaylist = function(playlist){
 		var songListIds = playlist.tracks.items.map(function (track){
-			console.log(track.track.id);
 			return track.track.id;
 		})
 		PlaylistService.trackPlaylist(playlist.id, songListIds).then(function(response){
-			console.log(response);
 			if (response.success) {
 				playlist.isTracked = true;
 			}
@@ -75,7 +72,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 
 	$scope.untrackPlaylist = function(playlist){
 		PlaylistService.untrackPlaylist(playlist.id).then(function(response){
-			console.log(response);
 			if (response.success) {
 				playlist.isTracked = false;
 			}
@@ -85,7 +81,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 
 
 	$scope.commitPlaylist =  function(playlist){
-		console.log(playlist)
 		PlaylistService.savePlaylist(playlist.id, getPlaylistSongs(playlist)).then(function(response){
 			console.log("saved!");
 		});
@@ -95,7 +90,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 	//Show a users's playlists. 
 	$scope.showPlaylist = function(playlist) {
 		$scope.currentPlaylist = playlist;
-		console.log($scope.currentPlaylist);
 	}
 
 	//If the playlist does not belong to the current user, we should create a new playlist for that user with the version they want? 
@@ -103,9 +97,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 });
 
 function getPlaylistSongs(playlist){
-	console.log(playlist.tracks.items)
 	var songListIds = playlist.tracks.items.map(function (track){
-		console.log(track.track.id);
 		return track.track.id;
 	});
 
