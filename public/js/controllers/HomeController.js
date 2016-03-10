@@ -1,5 +1,4 @@
 // public/js/controllers/HomeController.js
-
 app.controller('HomeController', function($scope, AuthService, PlaylistService, Spotify) {
 	$scope.currentPlaylist = {};
 
@@ -16,16 +15,15 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 	Spotify.getUserPlaylists(AuthService.permissions.user.id).then(function (data){
 		
 		data.items.forEach(function (playlist){
-			Spotify.getPlaylist(playlist.owner.id, playlist.id).then(function(data){
-				playlist.tracks = data.tracks;
+			Spotify.getPlaylist(playlist.owner.id, playlist.id).then(function(populatedPlaylist){
+				playlist.tracks = populatedPlaylist.tracks;
 				// console.log(data.tracks)
 			});
 
 			//if the playlist is a currently tracked playlist, add that to the playlist object
 			playlist.isTracked = $scope.trackedPlaylists.indexOf(playlist.id) > 0;
-
-		});
-
+			});
+		
 		$scope.userPlaylists = data.items.sort(function (a,b){
 			if(a.name > b.name) {
 				return 1;
@@ -35,7 +33,10 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 				return 0;
 			}
 		});
+
 	});
+
+		
 
 
 	// $scope.setTrackedPlaylist(playlist){
@@ -45,6 +46,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 	// 	})
 	// 	PlaylistService.trackPlaylist(playlist.id)
 	// }
+
 
 	//Get the users's tracked playlists
 
@@ -71,6 +73,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		.then(function (data) {
 			console.log('tracks removed from playlist');
 		});
+
 
 	//If the playlist does not belong to the current user, we should create a new playlist for that user with the version they want? 
 	// Do we copy over the history for that playlist? 
