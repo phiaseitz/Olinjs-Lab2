@@ -6,7 +6,7 @@ var Playlist = require('../models/playlistModel');
 
 var routes = {
   getPlaylists: function(req, res) {
-    Playlist.find({user: req.body.user}, 'id', function(playlists) {
+    Playlist.find({user: req.user.id}, function(err, playlists) {
       res.json(playlists);
     });
   },
