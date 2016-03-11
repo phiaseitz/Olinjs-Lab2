@@ -34,3 +34,6 @@ pids
 
 # API Key Stuff
 **/apiKeys.js
+
+# Bower libs
+**/public/libs

@@ -1,21 +1,22 @@
 {
   "name": "OlinJs-Mashup",
   "version": "0.0.0",
-  "description": "Creating a wiki",
-  "main": "server.js",
+  "description": "Github + Spotify",
+  "main": "app.js",
   "author": "",
   "dependencies": {
-    "angular-spotify": "^1.2.1",
     "body-parser": "~1.5.2",
-    "express": "~4.7.2",
+    "connect-mongo": "^1.1.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.8.0",
+    "express-session": "^1.13.0",
     "install": "^0.4.4",
     "jquery": "^2.2.0",
-    "method-override": "~2.1.2",
     "mongoose": "^4.4.5",
     "morgan": "~1.2.2",
+    "passport": "^0.3.2",
     "passport-spotify": "^0.3.0",
-    "path": "^0.12.7",
-    "serve-favicon": "^2.3.0"
+    "path": "^0.12.7"
   },
   "devDependencies": {},
   "scripts": {

@@ -1,0 +1,105 @@
+<md-card id="main-content" >
+  <div layout="row">
+
+    <div flex="33">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>
+            <span>Playlists</span>
+          </h2>
+        </div>
+      </md-toolbar>
+
+      <md-list flex layout-padding="10px">
+        <md-list-item md-ink-ripple
+            class="md-clickable"
+            ng-repeat="playlist in userPlaylists"
+            ng-click="showPlaylist(playlist)"
+            ng-class="{tracked: playlist.isTracked}">
+          <div class="md-list-item-text" layout="column">
+            <p>{{ playlist.name }}</p>
+          </div>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>      
+
+      </md-list>
+    </div>
+
+    <div flex="66">
+      <md-toolbar>
+        <div ng-switch="currentPlaylist.isTracked">
+          <div ng-switch-when="false">
+            <div class="md-toolbar-tools">
+              <h2>
+                <span><b>{{currentPlaylist.name}}</b></span>
+              </h2>
+              <span flex=""></span>            
+              <md-button
+                  class="md-raised"
+                  type="button"
+                  aria-label="Track"
+                  ng-click="trackPlaylist(currentPlaylist)">
+                Track
+              </md-button>
+            </div>
+          </div>
+          <div ng-switch-when="true">
+            <div class="md-toolbar-tools">
+              <h2>
+                <span><b>{{currentPlaylist.name}}</b></span>
+              </h2>
+              <span flex=""></span>            
+              <md-button
+                  class="md-raised"
+                  type="button"
+                  aria-label="Untrack"
+                  ng-click="untrackPlaylist(currentPlaylist)">
+                Untrack
+              </md-button>
+            </div>
+          </div>
+        </div>
+      </md-toolbar>
+
+      <div class="action-button-container" ng-if="currentPlaylist.isTracked">
+        <md-toolbar style="background-color: gray;">
+          <div class="md-toolbar-tools">
+            <span flex=""></span>             
+            <md-select
+                ng-model="currentPlaylist.displayedStateIndex"
+                aria-label="States"
+                ng-change="updateDisplayedState()">
+              <md-option value="-1">
+                Current Version on Spotify
+              </md-option>
+              <md-option ng-repeat="state in currentPlaylist.states" value="{{$index}}">
+                {{state.date}}
+              </md-option>
+            </md-select>
+            <md-button
+                class="md-raised md-primary"
+                type="button"
+                aria-label="Revert"
+                ng-click="revert()">
+              Revert
+            </md-button>
+            <md-button class="md-raised md-primary" type="button" aria-label="Commit" ng-click="commitPlaylist(currentPlaylist)">
+              Commit
+            </md-button>
+          </div>
+        </md-toolbar>
+      </div>
+
+      
+      <md-list flex layout-padding="10px">
+        <md-list-item ng-repeat="trackTitle in currentPlaylist.displayedState.songTitles track by $index">
+          <div class="md-list-item-text" layout="column">
+            <p>{{trackTitle}}</p>
+          </div>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>    
+      </md-list>
+    </div>
+
+  </div>
+</md-card>
