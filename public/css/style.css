@@ -1,5 +1,5 @@
 /*public/style.css*/
-/*main css style sheet for styling the whole app style theme*/
+/*main css style sheet for styling the whole app style theme. We're relying heavily on angular material for css stuff here.*/
 
 /* MAIN LAYOUT ============================================================== */
 body {

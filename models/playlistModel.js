@@ -1,4 +1,4 @@
-// Playlist model 
+// Playlist model. This is the format that we want to store the playlists in the database. 
 var mongoose = require('mongoose');
 
 var State = mongoose.Schema({

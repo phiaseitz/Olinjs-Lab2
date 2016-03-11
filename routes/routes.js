@@ -1,3 +1,4 @@
+//This is the file that handles interacting with our database (so, the playlist version control part of the project.)
 //routes/routes.js
 
 var express = require('express');

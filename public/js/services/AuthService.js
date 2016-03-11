@@ -1,4 +1,6 @@
 // public/javascripts/services/AuthService.js
+// This is the service that we use to handle the communication of authentication from the backend (where we are using passport-spotify for 
+// authentication) and the frontend (where we need an auth token to use the spotify API). 
 
 var routeForUnauthorizedAccess = '/login';
 

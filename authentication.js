@@ -1,3 +1,4 @@
+// This is the file where we have all of our authentication-based logic. We're using passport-spotify to handle all of our authentication. 
 var passport        = require('passport');
 var apiKeys         = require('./apiKeys.js');
 var SpotifyStrategy = require('passport-spotify').Strategy;

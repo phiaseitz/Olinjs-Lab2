@@ -1,3 +1,7 @@
+// This is the controller that handles all of the logic for the playlist app. On page load, we get all the playlists that the user has saved, 
+// then we also get all the playlists that belong to a user (not the ones that they're following, though). Here we also create functions for
+// interacting with playlists, and doing version control. Most of the time, when we make a change, we have to call the spotify api and interact
+// with our stored version in the databse. 
 // public/js/controllers/HomeController.js
 app.controller('HomeController', function($scope, AuthService, PlaylistService, Spotify) {
 	$scope.currentPlaylist = {

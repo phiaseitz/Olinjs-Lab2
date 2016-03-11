@@ -1,3 +1,4 @@
+<!-- This HTML file contains all of the html for interacting with a user's playlists. In this file we create the UI elements that users need to see all of the playlists that they own. From there, they can click on one of these playlists and view previous versions, commit the current version, or revert to an old version of the playlists.-->
 <md-card id="main-content" >
   <div layout="row">
 
@@ -76,16 +77,30 @@
                 {{state.date}}
               </md-option>
             </md-select>
-            <md-button
-                class="md-raised md-primary"
-                type="button"
-                aria-label="Revert"
-                ng-click="revert()">
-              Revert
-            </md-button>
-            <md-button class="md-raised md-primary" type="button" aria-label="Commit" ng-click="commitPlaylist(currentPlaylist)">
-              Commit
-            </md-button>
+            <div 
+              ng-switch="currentPlaylist.displayedStateIndex >= 0">
+              <div ng-switch-when="true">
+                <md-button
+                  class="md-raised md-primary"
+                  type="button"
+                  aria-label="Revert"
+                  ng-click="revert()">
+                  Revert
+                </md-button>
+              </div>
+              <div ng-switch-when="false">
+                <md-button 
+                  class="md-raised md-primary" 
+                  type="button" 
+                  aria-label="Commit" 
+                  ng-click="commitPlaylist(currentPlaylist)">
+                  Commit
+                </md-button>
+              </div>
+              
+              
+            </div>
+            
           </div>
         </md-toolbar>
       </div>

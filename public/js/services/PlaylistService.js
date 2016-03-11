@@ -1,3 +1,5 @@
+//This is the service that handles talking to our database from the frontend. We've defined functions that we can call to interact with routes that 
+// manage our playlist version control. The functions should be fairly self-explanatory
 app.service('PlaylistService', function($http, $q) {
 
   this.requests = {

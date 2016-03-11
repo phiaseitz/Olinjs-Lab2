@@ -1,3 +1,4 @@
+// This is the file that creates and sets up the app. Here we intitialize our express app, connect to mongo, and define some of the routes.
 // app.js
 
 // MODULE IMPORTS ==============================================================
