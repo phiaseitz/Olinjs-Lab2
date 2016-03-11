@@ -130,6 +130,13 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		}
 	}
 
+	$scope.revert = function() {
+		PlaylistService.revert(playlist.id, $currentPlaylist.displayedState).then(function(playlist) {
+			$scope.currentPlaylist = playlist;
+			$scope.currentPlaylist.currentState = $scope.currentPlaylist.states[0];
+		});
+	};
+
 	//If the playlist does not belong to the current user, we should create a new playlist for that user with the version they want? 
 	// Do we copy over the history for that playlist? 
 });
