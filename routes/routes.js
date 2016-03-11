@@ -11,8 +11,7 @@ var routes = {
     });
   },
   getPlaylist: function(req, res) {
-    console.log(req.query)
-    Playlist.findOne({playlistId: req.query.id}, function(err, playlist) {
+    Playlist.findOne({playlistId: req.params.playlistId}, function(err, playlist) {
       res.json(playlist);
     });
   },
@@ -43,7 +42,11 @@ var routes = {
   },
   revertPlaylist: function(req, res) {
     Playlist.findOne({playlistId: req.body.id}, function(err, playlist) {
-      playlist.states.unshift(playlist[req.body.state]);
+      console.log(playlist);
+      console.log(req.body);
+      var newState = playlist.states[req.body.state];
+      newState.date = new Date();
+      playlist.states.unshift(newState);
       playlist.save(function(err) {
         playlist.success = !err;
         res.json(playlist);

@@ -7,7 +7,7 @@ app.service('PlaylistService', function($http, $q) {
 
   this.send = function(method, action, data) {
     var confirmedPlaylist = $q.defer();
-    this.requests[method](action, data).then(function (response) {
+    this.requests[method](action, data || {}).then(function (response) {
       confirmedPlaylist.resolve(response.data);
     }, function (error) {
       console.log('ERROR: Promise error in PlaylistService', error);
@@ -44,15 +44,11 @@ app.service('PlaylistService', function($http, $q) {
   };
 
   this.getPlaylist = function(playlist) {
-    return this.send('GET', '/api/getPlaylist', {
-      params:{id: playlist}
-    });
+    return this.send('GET', '/api/getPlaylist/' + playlist);
   };
 
   this.getPlaylists = function(user) {
-    return this.send('GET', '/api/getPlaylists', {
-      user: user
-    });
+    return this.send('GET', '/api/getPlaylists');
   };
 
 });

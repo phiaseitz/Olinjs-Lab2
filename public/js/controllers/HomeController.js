@@ -17,7 +17,12 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 
 		// Get the user's playlists. 
 		Spotify.getUserPlaylists(AuthService.permissions.user.id).then(function (data){
-			$scope.userPlaylists = data.items.sort(function (a,b){
+
+			var userPlaylists = data.items.filter(function(playlist){
+				console.log(playlist);
+				return AuthService.permissions.user.id == playlist.owner.id;
+			})
+			$scope.userPlaylists = userPlaylists.sort(function (a,b){
 				if(a.name > b.name) {
 					return 1;
 				} else if (a.name < b.name) {
@@ -75,7 +80,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 			$scope.currentPlaylist = playlist;
 		}
 		else {
-			console.log("populating playlist");
 			Spotify.getPlaylist(playlist.owner.id, playlist.id).then(function(populatedPlaylist){
 				playlist.tracks = populatedPlaylist.tracks;
 				// console.log(populatedPlaylist.tracks)
@@ -84,7 +88,6 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 				if ($scope.trackedPlaylists.indexOf(playlist.id) >= 0){
 					PlaylistService.getPlaylist(playlist.id).then(function(playlistRecord) {
 						playlist.isTracked = true;
-						console.log(playlistRecord.states);
 						var playlistStates = playlistRecord.states.map(function(state){
 							state.isPopulated = false;
 							return state
@@ -112,16 +115,12 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 			$scope.currentPlaylist.displayedState = $scope.currentPlaylist.nowState;
 		} else {
 			var currentState = $scope.currentPlaylist.states[$scope.currentPlaylist.displayedStateIndex];
-			console.log(currentState);
 			if (currentState.isPopulated) {
-				console.log("already populated");
 				$scope.currentPlaylist.displayedState = { songs: currentState.songs,
 														songTitles: currentState.songTitles};
 			} else {
-				console.log("populating!");
 				Spotify.getTracks(currentState.songs).then(function(hydratedSongs){
 					currentState.isPopulated = true;
-					console.log(hydratedSongs);
 					currentState.songTitles = getTrackTitles(hydratedSongs.tracks);
 					$scope.currentPlaylist.displayedState = { songs: currentState.songs,
 														songTitles: currentState.songTitles};	
@@ -129,6 +128,20 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 			}
 		}
 	}
+
+	$scope.revert = function() {
+		PlaylistService.revertPlaylist($scope.currentPlaylist.id,
+			  $scope.currentPlaylist.displayedStateIndex).then(function(playlist) {
+			Spotify.replacePlaylistTracks(AuthService.permissions.user.id,
+					$scope.currentPlaylist.id, playlist.states[0].songs.join(','))
+			.then(function(data) {
+				$scope.currentPlaylist.tracks = {};
+				$scope.showPlaylist($scope.currentPlaylist);
+			});
+			
+
+		});
+	};
 
 	//If the playlist does not belong to the current user, we should create a new playlist for that user with the version they want? 
 	// Do we copy over the history for that playlist? 

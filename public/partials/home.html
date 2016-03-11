@@ -76,7 +76,11 @@
                 {{state.date}}
               </md-option>
             </md-select>
-            <md-button class="md-raised md-primary" type="button" aria-label="Revert">
+            <md-button
+                class="md-raised md-primary"
+                type="button"
+                aria-label="Revert"
+                ng-click="revert()">
               Revert
             </md-button>
             <md-button class="md-raised md-primary" type="button" aria-label="Commit" ng-click="commitPlaylist(currentPlaylist)">
