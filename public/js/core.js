@@ -1,4 +1,4 @@
-// Create the controller. This is what controls the app. 
+// Create the controller. This is what controls the app.
 var app = angular.module('gitify', [
     'ngRoute',
     'spotify',
@@ -22,6 +22,8 @@ var app = angular.module('gitify', [
       templateUrl: 'partials/login.html',
       controller: 'LoginController'
     });
-    
+
   $locationProvider.html5Mode(true);
 }]);
+
+// nice, concise core.js file! I like the controller/service modularization :)

@@ -1,4 +1,4 @@
-// Playlist model. This is the format that we want to store the playlists in the database. 
+// Playlist model. This is the format that we want to store the playlists in the database.
 var mongoose = require('mongoose');
 
 var State = mongoose.Schema({
@@ -22,6 +22,8 @@ var Playlist = mongoose.Schema({
     required: true
   },
   states: {
+    // this is embedding -- ok with me because the states are pretty simple and don't change once
+    // they're stored, but know that referencing is an option for more complicated model structures
     type: [State],
     required: true
   }

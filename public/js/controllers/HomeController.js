@@ -1,11 +1,10 @@
-// This is the controller that handles all of the logic for the playlist app. On page load, we get all the playlists that the user has saved, 
+// This is the controller that handles all of the logic for the playlist app. On page load, we get all the playlists that the user has saved,
 // then we also get all the playlists that belong to a user (not the ones that they're following, though). Here we also create functions for
 // interacting with playlists, and doing version control. Most of the time, when we make a change, we have to call the spotify api and interact
-// with our stored version in the databse. 
+// with our stored version in the databse.
 // public/js/controllers/HomeController.js
 app.controller('HomeController', function($scope, AuthService, PlaylistService, Spotify) {
-	$scope.currentPlaylist = {
-	};
+	$scope.currentPlaylist = {}; // empty objects usually written like this
 
 	//Get the playlists that the user is tracking!
 	PlaylistService.getPlaylists(AuthService.permissions.user.id).then(function(playlists){
@@ -15,11 +14,11 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 
 		$scope.trackedPlaylists = playlistIds || [];
 
-		// Spotify Auth stuff. This is the authentication token we get when we 
-		// authenticate with passport-spotify. 
+		// Spotify Auth stuff. This is the authentication token we get when we
+		// authenticate with passport-spotify.
 		Spotify.setAuthToken(AuthService.permissions.user.accessToken);
 
-		// Get the user's playlists. 
+		// Get the user's playlists.
 		Spotify.getUserPlaylists(AuthService.permissions.user.id).then(function (data){
 
 			var userPlaylists = data.items.filter(function(playlist){
@@ -44,7 +43,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 			if (response.success) {
 				playlist.isTracked = true;
 			}
-		})	
+		})
 	}
 
 
@@ -57,7 +56,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 				playlist.isTracked = true;
 			}
 		})
-		
+
 	}
 
 	$scope.untrackPlaylist = function(playlist){
@@ -66,7 +65,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 				playlist.isTracked = false;
 			}
 		})
-		
+
 	}
 
 
@@ -76,8 +75,8 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		});
 	}
 
-	
-	//Show a users's playlists. 
+
+	//Show a users's playlists.
 	$scope.showPlaylist = function(playlist) {
 		if (playlist.tracks.items) {
 			playlist.displayedState = playlist.nowState;
@@ -111,7 +110,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 				$scope.currentPlaylist = playlist;
 			});
 		}
-		
+
 	}
 
 	$scope.updateDisplayedState = function(){
@@ -127,7 +126,7 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 					currentState.isPopulated = true;
 					currentState.songTitles = getTrackTitles(hydratedSongs.tracks);
 					$scope.currentPlaylist.displayedState = { songs: currentState.songs,
-														songTitles: currentState.songTitles};	
+														songTitles: currentState.songTitles};
 				})
 			}
 		}
@@ -137,18 +136,18 @@ app.controller('HomeController', function($scope, AuthService, PlaylistService, 
 		PlaylistService.revertPlaylist($scope.currentPlaylist.id,
 			  $scope.currentPlaylist.displayedStateIndex).then(function(playlist) {
 			Spotify.replacePlaylistTracks(AuthService.permissions.user.id,
-					$scope.currentPlaylist.id, playlist.states[0].songs.join(','))
+					$scope.currentPlaylist.id, playlist.states[0].songs.join(',')) // so cool that you were able to get this working!
 			.then(function(data) {
 				$scope.currentPlaylist.tracks = {};
 				$scope.showPlaylist($scope.currentPlaylist);
 			});
-			
+
 
 		});
 	};
 
-	//If the playlist does not belong to the current user, we should create a new playlist for that user with the version they want? 
-	// Do we copy over the history for that playlist? 
+	//If the playlist does not belong to the current user, we should create a new playlist for that user with the version they want?
+	// Do we copy over the history for that playlist?
 });
 
 function getPlaylistSongs(playlist){
@@ -171,7 +170,7 @@ function getTrackTitles(tracks, isPlaylist){
 			return track.name;
 		});
 	}
-	
+
 
 	return songListTitles;
 }
