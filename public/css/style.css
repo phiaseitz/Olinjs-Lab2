@@ -1,5 +1,6 @@
 /*public/style.css*/
 /*main css style sheet for styling the whole app style theme. We're relying heavily on angular material for css stuff here.*/
+/*Getting to the point where modularizing your CSS into multiple files might be nice -- this file is kind of a monolith*/
 
 /* MAIN LAYOUT ============================================================== */
 body {
