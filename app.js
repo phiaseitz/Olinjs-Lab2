@@ -67,7 +67,7 @@ app.post('/api/untrackPlaylist', routes.untrackPlaylist);
 
 // AngularJS requests
 app.get('*', function (req, res) {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/public/index.html');//Nice
 });
 
 // START SERVER ================================================================

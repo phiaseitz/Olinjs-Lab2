@@ -22,6 +22,6 @@ var app = angular.module('gitify', [
       templateUrl: 'partials/login.html',
       controller: 'LoginController'
     });
-    
+    //otherwise statement would be good here to handle 404s
   $locationProvider.html5Mode(true);
 }]);
